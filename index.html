@@ -3,28 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Make them green</title>
+    <title>TIC TAC TOE</title>
     <link rel="stylesheet" href="tictactoe.css">
 </head>
 
 <body>
-    <section>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-    </section>
+    <main class="pageWrapper">
+        <header>
+            <h1>TIC TAC TOE</h1>
+        </header>
 
-    <section>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-    </section>
+        <section class = players>
+            <label>Player 1 "X"</label>
+            <label>Player 2 "0"</label>
+        </section>
 
-    <section>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-    </section>
+        <section>
+            <div class="box">X</div>
+            <div class="box">0</div>
+            <div class="box">X</div>
+        </section>
+
+        <section>
+            <div class="box">X</div>
+            <div class="box">0</div>
+            <div class="box">0</div>
+        </section>
+
+        <section>
+            <div class="box">X</div>
+            <div class="box">0</div>
+            <div class="box">0</div>
+        </section>
+
+        <section class="winOrDrawMessage">
+            PLAYER 1 or 2 WON | It was a draw
+        </section>
+
+        <section>
+            <button class="reset">Play Again</button>
+        </section>
+
+    </main>
 
     <script src="tictactoe.js"></script>
 

@@ -1,4 +1,3 @@
-console.log("asdfasfdas")
 
 // obtain all elements in the html page
 var boxElements = document.querySelectorAll("div");

@@ -2,22 +2,53 @@
     box-sizing: border-box;
 }
 
-div {
-    display: inline-block;
-
+main {
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+    border: 5px solid black;
+    border-radius: 20%;
 }
 
+div {
+    display: inline-block;
+    font-size: 2rem;
+    
+}
+
+label {
+    font-size: 2rem;
+    border: 5px solid black;
+    border-radius: 20%;
+    
+}
+
+section{
+    margin: 0 0 1% 0;
+}
+
+.players {
+    margin: 5% 5% 5% 5%;
+}
 
 .box {
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     border: 5px solid black;
 }
 
+
+.winOrDrawMessage {
+    font-size: 2rem;
+}
+
+button {
+    font-size: 2rem;
+}
 .red {
     background-color: red;
 }
 
 .green {
-    background-color: green;
+    background-color:lightgreen;
 } 

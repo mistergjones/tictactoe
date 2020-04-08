@@ -4,16 +4,18 @@ var gameGridArray = ["-","-","-","-","-","-","-","-","-"];
 var drawMessage = "It was a draw!";
 var playerOneWinMessage = "Player 1 won!";
 var playerTwoWinMessage = "Player 2 won!";
-counter = 0;
-p1ScoreCounter = 0;
-p2ScoreCounter = 0;
+
+var p1ScoreCounter = 0;
+var p2ScoreCounter = 0;
+var computerPlayer = false;
+
+var whichOpponent = ['Human', "Computer"];
 
 // string to compare who the winner is
 var answerX = 'XXX';
 var answer0 = '000';
 
 var arrayInsertIdxPosition = null;
-
 
 // 2. obtain all elements in the html page
 //var boxElements = document.querySelectorAll("div");
@@ -27,14 +29,36 @@ var boxElements = document.querySelectorAll('.button');
 var winningApplause = document.querySelector(".applause"); 
 var player1ScoreCounter = document.querySelector(".player1ScoreCounter")
 var player2ScoreCounter = document.querySelector(".player2ScoreCounter")
+//  used for either selecting a human or computer player
+var chooseOpponentDropDownList = document.querySelector(".chooseOpponent")
+var humanPlayer = document.querySelector(".humanPlayer")
+var computerPlayer = document.querySelector(".computerPlayer")
+
+
+
 
 // 3. set the UI starting conditions
 player1.style.backgroundColor = "lightgreen";
 resetButton.disabled = true;
+var whichPlayerCounter = 0;
 
 // 4. Declare the functions used
-var handleClick = function (event) {
 
+// checks for it there has been a drop down list change
+var handleComputerPlayer = function (event) {
+    if (event.target.selectedIndex == 1) {
+        computerPlayer = true;
+        console.log(computerPlayer);
+    } 
+    else {
+        computerPlayer = false;
+    }
+}
+
+
+
+var handleClick = function (event) {
+    console.log(event);
     //event.target.style.backgroundColor = 'red';
     event.target.classList.toggle('red');
     event.target.disabled = true;
@@ -50,19 +74,37 @@ var handleClick = function (event) {
         player1.style.backgroundColor = "white";
         player2.style.backgroundColor = "lightgreen";
 
+        updateGameGridArray(arrayInsertIdxPosition,charToInsert);
+        if (computerPlayer ===true) {
+            obtainRemainingPositions(); 
+        }
+    
     } else {
         var charToInsert = event.target.textContent = "0"
         player2.style.backgroundColor = "white";
         player1.style.backgroundColor = "lightgreen";
-    }
-    
-    // call the below function to update the master array in where the player has inputted their choice
-    updateGameGridArray(arrayInsertIdxPosition, charToInsert)
 
-    // if items clicked to RED is the same as # of elements. i.e 9...it means it was a draw.
+        updateGameGridArray(arrayInsertIdxPosition,charToInsert);
+
+    }
+}
+
+
+    // call the below function to update the master array in where the player has inputted their choice
+// var updateGameGridArray = function (arrayInsertIdxPosition, charToInsert) {
+
+
+// }
+
+var updateGameGridArray = function(arrayInsertIdxPosition, charToInsert) {
+    // insert in the array the index position and the players character (X or 0)
+    gameGridArray[arrayInsertIdxPosition] = charToInsert;
+
+        // if items clicked to RED is the same as # of elements. i.e 9...it means it was a draw.
     // Then make the board all green.
     if ((document.querySelectorAll('.red').length) === boxElements.length) {
         for (var i = 0; i < boxElements.length; i++) {
+            boxElements[i].classList.toggle("green");
             boxElements[i].classList.toggle("green");
 
             // display the DRAW message. Disable the event listener preventing the user from changing board game
@@ -77,18 +119,13 @@ var handleClick = function (event) {
 
     // call the below function to slice/determine the game grid array into its various winning combinations
     populateDecisionArrays();
-}
-
-var updateGameGridArray = function(arrayInsertIdxPosition, charToInsert) {
-    // insert in the array the index position and the players character (X or 0)
-    gameGridArray[arrayInsertIdxPosition] = charToInsert;
     return;
 }
 
 var isPlayerOneTurn = function() {
-    counter = counter +1;
-    
-    if (counter % 2 === 0) {
+    whichPlayerCounter = whichPlayerCounter +1;
+    console.log(`Line 100: ${whichPlayerCounter}`)
+    if (whichPlayerCounter % 2 === 0) {
         return false;
     } else {
         return true;
@@ -126,6 +163,7 @@ var populateDecisionArrays = function() {
     checkWin(tempd1);
     checkWin(tempd2);
 
+
 }
 
 // this function disables the handleClick event listener when player 1, 2 or a draw occurs.
@@ -153,8 +191,10 @@ var checkWin = function (potentialWinner) {
         // play winner
         winningApplause.play();
         // update the player 1 score counter
-        
         player1ScoreCounter.textContent = Number(player1ScoreCounter.textContent) + 1;
+
+        // update back to player 1 to start. Remove this if you want alternating player starts
+        whichPlayerCounter = 0;
 
     } else if (potentialWinner === answer0) {
         // display player 2 win message
@@ -169,8 +209,70 @@ var checkWin = function (potentialWinner) {
 
         // update the player 1 score counter
         player2ScoreCounter.textContent = Number(player2ScoreCounter.textContent) + 1;
+        // update back to player 1 to start. Remove this if you want alternating player starts
+        whichPlayerCounter = 0;
     }
 }
+
+
+
+// When a computer plays, this function determines where the '-' characters are in the mainGridArray.
+// If a '-' is present, it means a computer can eventually place a 0 in one of these positions
+var obtainRemainingPositions = function() {
+
+    var startIndex = 0;
+    var availableIndexPosittions = ''
+    
+    while (true) {
+        // while true, find the hyphens via indexOf(). If one is found, take it's index position and add 1 to recommence
+        // the search
+        var foundIndex = gameGridArray.indexOf('-',startIndex);
+        if (foundIndex !=-1) {
+            availableIndexPosittions = availableIndexPosittions+foundIndex;
+        }
+        if (foundIndex ==-1) {
+            break;
+        }
+        // ensure to increment the start the next search of indexof() after the previous '-' was found
+        startIndex = foundIndex + 1;
+    }
+    console.log(availableIndexPosittions);
+    
+    // From the remaining index positions open, the random index position # to then insert a '0' in is
+    // the minus 1 is to cater for ZERO based counting
+    var randomIndexPositionToInsertAZero = getRandomIndexPosition(0, availableIndexPosittions.length-1   );
+    //console.log(`From the remaining index positions open, the random # to then insert a 0 in is ${randomIndexPositionToInsertAZero}`);
+    //console.log(`This means you insert a ZERO at the following gameGridArray index position ${availableIndexPosittions[randomIndexPositionToInsertAZero]}`);
+
+    // take the random index position that was calculated and used the string's value number to update the grid array
+    updateGameGridArray(availableIndexPosittions[randomIndexPositionToInsertAZero], "0")
+    //debugger;
+    for (var i = 0; i < boxElements.length; i++) {
+        if (boxElements[i].getAttribute("data-ArrayIdx") == availableIndexPosittions[randomIndexPositionToInsertAZero]) {
+            console.log(boxElements[i].getAttribute("data-ArrayIdx"));
+            boxElements[i].textContent = "0"
+            boxElements[i].classList.toggle('red');
+            boxElements[i].disabled = true;
+            whichPlayerCounter = 0; //ensure the turn goes back to player1. i.e so an 'X' can  be placed
+            break;
+        }
+    }
+    // now we'll check the arrays to calculate all winning combinations and then invoke checkWin() to determine if a winner
+    populateDecisionArrays()
+}
+
+// This function returns a random number between 0 and the length-1 of the availble position open.
+var getRandomIndexPosition = function (min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+  }
+
+
+var resetButtonFunctionality = function(boolean) {
+    resetButton.disabled = boolean;
+}
+
 
 
 var handleResetGame = function (event) {
@@ -187,7 +289,9 @@ var handleResetGame = function (event) {
         boxElements[i].addEventListener('click', handleClick);
     }
     // reset the player counter, and reset message to blank, player colours and disable RESET button       
-    counter = 0;
+    whichPlayercounter = 0;
+    console.log(`Line 259: ${whichPlayerCounter}`)
+    //console.log(whichPlayerCounter);
     winOrDrawMessage.textContent = "";
     player1.style.backgroundColor = "lightgreen";
     player2.style.backgroundColor = "white";
@@ -196,9 +300,6 @@ var handleResetGame = function (event) {
 
 }
 
-var resetButtonFunctionality = function(boolean) {
-    resetButton.disabled = boolean;
-}
 
 //add an event click listener for all div elements on the game board
 for (var i = 0; i < boxElements.length; i++) {
@@ -208,3 +309,6 @@ for (var i = 0; i < boxElements.length; i++) {
 
 // add an eveny click listens to reset the game if player wins or a draw
 resetButton.addEventListener('click', handleResetGame);
+
+// this is an event listener for when a user would like to paly the computer
+document.querySelector(".chooseOpponent").addEventListener("change", handleComputerPlayer);

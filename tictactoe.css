@@ -28,6 +28,7 @@ section{
 
 }
 
+
 .players text {
     display: inline-block;
     margin: 1% 1% 1% 1%;
@@ -55,9 +56,18 @@ section{
     font-size: 2rem;
 }
 
-button {
+.button {
     font-size: 2rem;
     cursor: pointer;
+    width: 10%;
+}
+
+button {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-size: 2rem;
+    cursor: pointer;
+
 }
 .red {
     background-color: red;

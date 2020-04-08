@@ -1,6 +1,7 @@
 ## Table of contents
 * [General info](#general-info)
 * [Game link](#gamelink)
+* [Game Extensions](#game-extensions)
 * [Screenshots](#screenshots)
 * [In-depth Features of the game](#in-depth-features-of-the-game)
 * [Technologies Used](#technologies-used)
@@ -19,6 +20,12 @@ This project is to demonstrate that the following requirements are met in develo
 * Use Javascript for DOM manipulation
 * Deploy your game online, where the rest of the world can access it
 * Use semantic markup for HTML and CSS (adhere to best practices)
+
+## Game Extensions
+The following features are also present in the updated game.
+* It keeps score on which player wins
+* It plays a sound when a player wins.
+* The game has an in-built computer player to play against.
 
 ## Game Link
 * The game can be linked here
@@ -46,6 +53,7 @@ This project is to demonstrate that the following requirements are met in develo
 * Understood the rules of the game to determine how a winner is determined. i.e. It checks 8 combinations for a winner.
 * Re-used the pin-pad functionality from the BANK ATM exercise as part of the solution.
 * Spent a lot of time in determining how best to reset the game without doing a "reload". There doesn't seem to be an easy way.
+* Adding the computer player component required splitting up the large click handler function to accomodate the logic.  
 
 
 ## Technologies

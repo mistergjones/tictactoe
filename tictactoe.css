@@ -10,6 +10,7 @@ main {
     border-radius: 20%;
 }
 
+
 div {
     display: inline-block;
     font-size: 2rem;
@@ -18,17 +19,29 @@ div {
 
 label {
     font-size: 2rem;
-    border: 5px solid black;
+    border: 2px solid black;
     border-radius: 20%;
-    
 }
 
 section{
-    margin: 0 0 1% 0;
+    margin: 0 0 0 0;
+
 }
 
-.players {
-    margin: 5% 5% 5% 5%;
+.players text {
+    display: inline-block;
+    margin: 1% 1% 1% 1%;
+    border: solid black;
+    border-style: double;
+    font-size: 2rem;
+}
+
+.winCounters text {
+    display: inline-block;
+    margin: 1% 1% 1% 1%;
+    border: solid black;
+    border-style: double;
+    font-size: 2rem;
 }
 
 .box {

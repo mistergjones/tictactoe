@@ -5,14 +5,14 @@ var drawMessage = "It was a draw!";
 var playerOneWinMessage = "Player 1 won!";
 var playerTwoWinMessage = "Player 2 won!";
 counter = 0;
+p1ScoreCounter = 0;
+p2ScoreCounter = 0;
 
 // string to compare who the winner is
 var answerX = 'XXX';
 var answer0 = '000';
 
 var arrayInsertIdxPosition = null;
-
-
 
 
 // 2. obtain all elements in the html page
@@ -22,6 +22,11 @@ var player2 = document.querySelector(".player2");
 var winOrDrawMessage = document.querySelector(".winOrDrawMessage");
 var resetButton = document.querySelector(".reset-btn");
 var boxElements = document.querySelectorAll('.button');
+
+// 2b - items for the extensions
+var winningApplause = document.querySelector(".applause"); 
+var player1ScoreCounter = document.querySelector(".player1ScoreCounter")
+var player2ScoreCounter = document.querySelector(".player2ScoreCounter")
 
 // 3. set the UI starting conditions
 player1.style.backgroundColor = "lightgreen";
@@ -145,7 +150,11 @@ var checkWin = function (potentialWinner) {
         removeBoxElementsEventListener();
         // change the reset button to false
         resetButtonFunctionality(false);
+        // play winner
+        winningApplause.play();
+        // update the player 1 score counter
         
+        player1ScoreCounter.textContent = Number(player1ScoreCounter.textContent) + 1;
 
     } else if (potentialWinner === answer0) {
         // display player 2 win message
@@ -155,6 +164,11 @@ var checkWin = function (potentialWinner) {
     // change the reset button to false
         resetButtonFunctionality(false);
 
+        // play winner
+        winningApplause.play();
+
+        // update the player 1 score counter
+        player2ScoreCounter.textContent = Number(player2ScoreCounter.textContent) + 1;
     }
 }
 

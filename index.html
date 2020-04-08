@@ -9,14 +9,18 @@
 
 <body>
     <main class="pageWrapper">
-        <header>
+        <header class="heading">
             <h1>TIC TAC TOE</h1>
         </header>
 
-    
         <section class = players>
-            <label class="player1" data-Player2Char="X">Player 1 "X"</label>
-            <label class="player2" data-Player2Char="0">Player 2 "0"</label>
+            <text class="player1" data-Player2Char="X">Player 1 "X"</text>
+            <text class="player2" data-Player2Char="0">Player 2 "0"</text>
+        </section>
+
+        <section class = winCounters>
+            <text class="player1ScoreCounter">0</text>
+            <text class="player2ScoreCounter">0</text>
         </section>
 
         <!-- <section class="allDivs">
@@ -64,6 +68,10 @@
         <section>
             <button class="reset-btn">Play Again</button>
         </section>
+
+        <audio class="applause">
+            <source src="claps3.mp3" type="audio/mpeg">
+        </audio>
 
     </main>
 

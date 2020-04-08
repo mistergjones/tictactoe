@@ -1,28 +1,14 @@
 
 // 1. create master variables
 var gameGridArray = ["-","-","-","-","-","-","-","-","-"];
-var drawMessage = "It was a draw";
-var playerOneWinMessage = "Player 1 won";
-var playerTwoWinMessage = "Player 2 won";
-//var playerOneTurn = true;
+var drawMessage = "It was a draw!";
+var playerOneWinMessage = "Player 1 won!";
+var playerTwoWinMessage = "Player 2 won!";
 counter = 0;
 
 // string to compare who the winner is
 var answerX = 'XXX';
 var answer0 = '000';
-
-// arrays to store the player inputs to check against
-// var tempRow1 = []
-// var tempRow2 = []
-// var tempRow3 = []
-
-// var tempCol1 = []
-// var tempCol2 = []
-// var tempCol3 = []
-
-// var tempDiag1 = [];
-// var tempDiag2 = [];
-
 
 var arrayInsertIdxPosition = null;
 
@@ -35,6 +21,7 @@ var resestButton = document.querySelector(".reset-btn");
 
 // 3. set the UI starting conditions
 player1.style.backgroundColor = "lightgreen";
+resestButton.disabled = false;
 
 // 4. Declare the functions used
 
@@ -51,30 +38,37 @@ var handleClick = function (event) {
     var arrayInsertIdxPosition = Number(event.target.getAttribute("data-ArrayIdx"));
     //gameGridArray[arrayInsertIdxPosition] = event.target.textContent = "X";
 
+    // determine if its player 1 turn.
     var playerOneTurn = isPlayerOneTurn();
-    
     if (playerOneTurn ==true) {
-        var charToInsert = event.target.textContent = "X"
+        var charToInsert = event.target.textContent = "X";
         player1.style.backgroundColor = "white";
         player2.style.backgroundColor = "lightgreen";
 
-    }
-    else {
+    } else {
         var charToInsert = event.target.textContent = "0"
         player2.style.backgroundColor = "white";
         player1.style.backgroundColor = "lightgreen";
     }
+    
+    // call the below function to update the master array in where the player has inputted their choice
     updateGameGridArray(arrayInsertIdxPosition, charToInsert)
 
-    // if items clicked to RED is the same as # of elements. i.e 3...
+    // if items clicked to RED is the same as # of elements. i.e 9...it means it was a draw.
+    // Then make the board all green.
     if ((document.querySelectorAll('.red').length) === boxElements.length) {
         for (var i = 0; i < boxElements.length; i++) {
             boxElements[i].classList.toggle("green");
+
+            // display the DRAW message. Disable the event listener preventing the user from changing board game
+            winOrDrawMessage.textContent = drawMessage;
+            removeBoxElementsEventListener();
         }
     } else {
         console.log("it does not work")
     }
 
+    // call the below function to slice/determine the game grid array into its various winning combinations
     populateDecisionArrays();
 }
 
@@ -94,14 +88,12 @@ var isPlayerOneTurn = function() {
     }
 }
 
+// This function is to slice the game grid array into its various game winning combinations upon
+// each time a player inputs their X or 0.
+// It will then check each combination to determine a winner.
 var populateDecisionArrays = function() {
 
     // require 8 by 3 rows for all combinations to check
-
-    // clear those arrays that are not using array methods
-    // tempCol1 = [], tempCol2 = [], tempCol3 = [],
-    // tempDiag1 = [], tempDiag2 = [];
-    
 
     // array methods to populate the row combinations and convert to strings.
     tempRow1 = gameGridArray.slice(0,3).join("");
@@ -118,6 +110,7 @@ var populateDecisionArrays = function() {
     tempd1 = gameGridArray[0]+gameGridArray[4]+gameGridArray[8];
     tempd2 = gameGridArray[2]+gameGridArray[4]+gameGridArray[6];
     
+    // now check each combination to determine if there is a winner
     checkWin(tempRow1);
     checkWin(tempRow2);
     checkWin(tempRow3);
@@ -127,70 +120,38 @@ var populateDecisionArrays = function() {
     checkWin(tempd1);
     checkWin(tempd2);
 
-    // console.log(tempRow1.toString() === answerX);
-    // // derive each of the columns
-    // for (var i = 0; i < gameGridArray.length; i=i+3) {
-    //     tempCol1.push(gameGridArray[i]);
-    // }
-
-    // for (var i = 1; i < gameGridArray.length; i=i+3) {
-    //     tempCol2.push(gameGridArray[i]);
-    // }
-
-    // for (var i = 2; i < gameGridArray.length; i=i+3) {
-    //     tempCol3.push(gameGridArray[i]);
-    // }
-
-    // // derive the diagnal arrays. Require idx 0,4,8
-    // var i = 0;
-    // while (i <= 8) {
-    //     tempDiag1.push(gameGridArray[i]);
-    //     i = i + 4;
-    // }
-
-    // // now for diaganol 2. Require idx 2,4,6
-    // var i = 2;
-    // while (i <=6) {
-    //     tempDiag2.push(gameGridArray[i]);
-    //     i = i + 2;
-    // }
-
-    //printCombos();
 }
 
+// this function disables the handleClick event listener when player 1, 2 or a draw occurs.
+// This prevenets the user from making more changes on the game.
+var removeBoxElementsEventListener = function () {
+
+    for (var i = 0; i < boxElements.length; i++) {
+        boxElements[i].removeEventListener('click', handleClick, false);
+    }
+}
+
+// thus function checks the combination and if there is a winner, will also then call and disable the 
+// handle click event listener
 var checkWin = function (potentialWinner) {
+
+    // if player 1 is the winner
     if (potentialWinner === answerX) {
-        console.log(playerOneWinMessage);
+        // display player 1 win message
         winOrDrawMessage.textContent = playerOneWinMessage;
+        // disable the handleClick event listener prevening a person in making further gameboard changes
+        removeBoxElementsEventListener();
 
-    }
-    else if (potentialWinner === answer0) {
-        console.log(playerTwoWinMessage);
+    } else if (potentialWinner === answer0) {
+        // display player 2 win message
         winOrDrawMessage.textContent = playerTwoWinMessage;
-    } else {
+        // disable the handleClick event listener prevening a person in making further gameboard changes
+        removeBoxElementsEventListener();
 
     }
-
 }
 
-var printCombos = function () {
-    console.log(`Row 1 is: ${tempRow1}`)
-    console.log(`Row 2 is: ${tempRow2}`)
-    console.log(`Row 2 is: ${tempRow3}`)
-
-    console.log(`Col 1 is: ${tempCol1}`)
-    console.log(`Col 2 is: ${tempCol2}`)
-    console.log(`Col 3 is: ${tempCol3}`)
-
-    console.log(`Diag 1 is: ${tempDiag1}`)
-    console.log(`Diag 2 is: ${tempDiag2}`)
-
-    console.log(tempDiag2.length);
-
-} 
-
-
-//add an event click listener for all array items
+//add an event click listener for all div elements on the game board
 for (var i = 0; i < boxElements.length; i++) {
     boxElements[i].addEventListener('click', handleClick);
 }

@@ -44,6 +44,7 @@ section{
 
 button {
     font-size: 2rem;
+    cursor: pointer;
 }
 .red {
     background-color: red;
@@ -52,3 +53,7 @@ button {
 .green {
     background-color:lightgreen;
 } 
+
+.yellow {
+    background-color: lightyellow;
+}

@@ -1,5 +1,6 @@
 ## Table of contents
 * [General info](#general-info)
+* [Game link](#gamelink)
 * [Screenshots](#screenshots)
 * [In-depth Features of the game](#in-depth-features-of-the-game)
 * [Technologies Used](#technologies-used)
@@ -19,8 +20,12 @@ This project is to demonstrate that the following requirements are met in develo
 * Deploy your game online, where the rest of the world can access it
 * Use semantic markup for HTML and CSS (adhere to best practices)
 
+## Game Link
+* The game can be linked here
+[https://mistergjones.github.io/tictactoe/]
+
 ## Screenshots
-![Example screenshot](./img/screenshot.png)
+![Example screenshot](screenshot.png)
 
 
 ## In-depth code features of the game

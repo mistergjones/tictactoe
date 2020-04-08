@@ -12,16 +12,6 @@ var answer0 = '000';
 
 var arrayInsertIdxPosition = null;
 
-// var btnZero = document.querySelector('#zero');
-// var btnOne = document.querySelector('#one');
-// var btnTwo = document.querySelector('#two');
-// var btnThree = document.querySelector('#three');
-// var btnFour = document.querySelector('#four');
-// var btnFive = document.querySelector('#five');
-// var btnSix = document.querySelector('#six');
-// var btnSeven = document.querySelector('#seven');
-// var btnEight = document.querySelector('#eight');
-var boxElements = document.querySelectorAll('.button');
 
 
 
@@ -31,14 +21,13 @@ var player1 = document.querySelector(".player1");
 var player2 = document.querySelector(".player2");
 var winOrDrawMessage = document.querySelector(".winOrDrawMessage");
 var resetButton = document.querySelector(".reset-btn");
+var boxElements = document.querySelectorAll('.button');
 
 // 3. set the UI starting conditions
 player1.style.backgroundColor = "lightgreen";
-resetButton.disabled = false;
-//resetButton.style.visibility = "hidden";
+resetButton.disabled = true;
 
 // 4. Declare the functions used
-
 var handleClick = function (event) {
 
     //event.target.style.backgroundColor = 'red';
@@ -74,6 +63,7 @@ var handleClick = function (event) {
             // display the DRAW message. Disable the event listener preventing the user from changing board game
             winOrDrawMessage.textContent = drawMessage;
             removeBoxElementsEventListener();
+            resetButtonFunctionality(false);
         }
     } else {
         //event.target.classList.toggle('red');
@@ -106,12 +96,6 @@ var isPlayerOneTurn = function() {
 var populateDecisionArrays = function() {
 
     // require 8 by 3 rows for all combinations to check
-    tempc1 = null;
-    tempc2 = null;
-    tempc3 = null;
-    tempd1 = null;
-    tempd2 = null;
-
     // array methods to populate the row combinations and convert to strings.
     tempRow1 = gameGridArray.slice(0,3).join("");
     tempRow2 = gameGridArray.slice(3,6).join("");
@@ -159,12 +143,17 @@ var checkWin = function (potentialWinner) {
         winOrDrawMessage.textContent = playerOneWinMessage;
         // disable the handleClick event listener prevening a person in making further gameboard changes
         removeBoxElementsEventListener();
+        // change the reset button to false
+        resetButtonFunctionality(false);
+        
 
     } else if (potentialWinner === answer0) {
         // display player 2 win message
         winOrDrawMessage.textContent = playerTwoWinMessage;
         // disable the handleClick event listener prevening a person in making further gameboard changes
         removeBoxElementsEventListener();
+    // change the reset button to false
+        resetButtonFunctionality(false);
 
     }
 }
@@ -183,12 +172,18 @@ var handleResetGame = function (event) {
         boxElements[i].classList.remove('green');
         boxElements[i].addEventListener('click', handleClick);
     }
-    // reset the main counter and reset message to blank       
+    // reset the player counter, and reset message to blank, player colours and disable RESET button       
     counter = 0;
     winOrDrawMessage.textContent = "";
     player1.style.backgroundColor = "lightgreen";
     player2.style.backgroundColor = "white";
+    resetButtonFunctionality(true);
+    
 
+}
+
+var resetButtonFunctionality = function(boolean) {
+    resetButton.disabled = boolean;
 }
 
 //add an event click listener for all div elements on the game board

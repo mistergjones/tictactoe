@@ -3,13 +3,22 @@
 }
 
 main {
-    width: 60%;
+    width: 40%;
     margin: 0 auto;
     text-align: center;
     border: 5px solid black;
     border-radius: 20%;
+    
 }
 
+.flip-horizontally {
+    transform: scaleX(-1);
+  }
+
+  img {
+    width: 60px;
+    height:60px;
+  }
 
 div {
     display: inline-block;
@@ -84,3 +93,39 @@ button {
 .button {
     background-color: lightgrey;
 } */
+
+
+  
+div.at-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.at-item {
+    color: black;
+    animation-name: slide-out-elliptic-bottom-fwd;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-fill-mode: none;
+}
+@keyframes slide-out-elliptic-bottom-fwd {
+    0%{
+        -webkit-transform: translateY(0) rotateX(0) scale(1);
+        transform: translateY(0) rotateX(0) scale(1);
+        -webkit-transform-origin: 50% 500px;
+        transform-origin: 50% 500px;
+        opacity: 1;
+        }
+    100%{
+        -webkit-transform: translateY(600px) rotateX(-20deg) scale(6);
+        transform: translateY(600px) rotateX(-20deg) scale(6);
+        -webkit-transform-origin: 50% -100%;
+        transform-origin: 50% -100%;
+        opacity: 0;
+        }
+}
+  

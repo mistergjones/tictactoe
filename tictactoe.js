@@ -29,13 +29,11 @@ var boxElements = document.querySelectorAll('.button');
 var winningApplause = document.querySelector(".applause"); 
 var player1ScoreCounter = document.querySelector(".player1ScoreCounter")
 var player2ScoreCounter = document.querySelector(".player2ScoreCounter")
+
 //  used for either selecting a human or computer player
 var chooseOpponentDropDownList = document.querySelector(".chooseOpponent")
 var humanPlayer = document.querySelector(".humanPlayer")
 var computerPlayer = document.querySelector(".computerPlayer")
-
-
-
 
 // 3. set the UI starting conditions
 player1.style.backgroundColor = "lightgreen";
@@ -44,9 +42,11 @@ var whichPlayerCounter = 0;
 
 // 4. Declare the functions used
 
-// checks for it there has been a drop down list change
+// This handler event is triggered when a user either clicks on the drop down list.
+// It sets the computer player to TRUE if selected or FALSE if back to human
 var handleComputerPlayer = function (event) {
     if (event.target.selectedIndex == 1) {
+        console.log(computerPlayer.value);
         computerPlayer = true;
         console.log(computerPlayer);
     } 
@@ -54,6 +54,7 @@ var handleComputerPlayer = function (event) {
         computerPlayer = false;
     }
 }
+
 
 
 
@@ -69,13 +70,18 @@ var handleClick = function (event) {
 
     // determine if its player 1 turn.
     var playerOneTurn = isPlayerOneTurn();
-    if (playerOneTurn ==true) {
+
+    if (playerOneTurn ===true) {
         var charToInsert = event.target.textContent = "X";
         player1.style.backgroundColor = "white";
         player2.style.backgroundColor = "lightgreen";
 
+        // update the master grid array with the uer choice
         updateGameGridArray(arrayInsertIdxPosition,charToInsert);
+        // If the computer player has been selected, run its own functins to populate the gameboard
         if (computerPlayer ===true) {
+            player2.style.backgroundColor = "white";
+            player1.style.backgroundColor = "lightgreen";
             obtainRemainingPositions(); 
         }
     
@@ -103,6 +109,8 @@ var updateGameGridArray = function(arrayInsertIdxPosition, charToInsert) {
         // if items clicked to RED is the same as # of elements. i.e 9...it means it was a draw.
     // Then make the board all green.
     if ((document.querySelectorAll('.red').length) === boxElements.length) {
+        // if draw reset player counter
+        whichPlayerCounter = 0;
         for (var i = 0; i < boxElements.length; i++) {
             boxElements[i].classList.toggle("green");
             boxElements[i].classList.toggle("green");
@@ -124,12 +132,14 @@ var updateGameGridArray = function(arrayInsertIdxPosition, charToInsert) {
 
 var isPlayerOneTurn = function() {
     whichPlayerCounter = whichPlayerCounter +1;
-    console.log(`Line 100: ${whichPlayerCounter}`)
+    console.log(`Line 129: ${whichPlayerCounter}`)
     if (whichPlayerCounter % 2 === 0) {
         return false;
     } else {
+        
         return true;
     }
+    
 }
 
 // This function is to slice the game grid array into its various game winning combinations upon
@@ -194,23 +204,23 @@ var checkWin = function (potentialWinner) {
         player1ScoreCounter.textContent = Number(player1ScoreCounter.textContent) + 1;
 
         // update back to player 1 to start. Remove this if you want alternating player starts
-        whichPlayerCounter = 0;
+        //whichPlayerCounter = 0;
 
     } else if (potentialWinner === answer0) {
         // display player 2 win message
         winOrDrawMessage.textContent = playerTwoWinMessage;
         // disable the handleClick event listener prevening a person in making further gameboard changes
         removeBoxElementsEventListener();
-    // change the reset button to false
+        // change the reset button to false
         resetButtonFunctionality(false);
 
         // play winner
         winningApplause.play();
 
-        // update the player 1 score counter
+        // update the player 2 score counter
         player2ScoreCounter.textContent = Number(player2ScoreCounter.textContent) + 1;
         // update back to player 1 to start. Remove this if you want alternating player starts
-        whichPlayerCounter = 0;
+        //whichPlayerCounter = 0;
     }
 }
 
@@ -236,17 +246,17 @@ var obtainRemainingPositions = function() {
         // ensure to increment the start the next search of indexof() after the previous '-' was found
         startIndex = foundIndex + 1;
     }
-    console.log(availableIndexPosittions);
-    
-    // From the remaining index positions open, the random index position # to then insert a '0' in is
+   
+    //console.log(availableIndexPosittions);
+   
+    // From the remaining index positions available, the random index position # to then insert a '0' in is
     // the minus 1 is to cater for ZERO based counting
     var randomIndexPositionToInsertAZero = getRandomIndexPosition(0, availableIndexPosittions.length-1   );
-    //console.log(`From the remaining index positions open, the random # to then insert a 0 in is ${randomIndexPositionToInsertAZero}`);
-    //console.log(`This means you insert a ZERO at the following gameGridArray index position ${availableIndexPosittions[randomIndexPositionToInsertAZero]}`);
 
     // take the random index position that was calculated and used the string's value number to update the grid array
     updateGameGridArray(availableIndexPosittions[randomIndexPositionToInsertAZero], "0")
-    //debugger;
+
+    // now loop through all elemtns and match the button data Index to the index positino and update the display
     for (var i = 0; i < boxElements.length; i++) {
         if (boxElements[i].getAttribute("data-ArrayIdx") == availableIndexPosittions[randomIndexPositionToInsertAZero]) {
             console.log(boxElements[i].getAttribute("data-ArrayIdx"));
@@ -269,15 +279,17 @@ var getRandomIndexPosition = function (min, max) {
   }
 
 
+// This function enables the "play again" button to be toggled on/off when required
 var resetButtonFunctionality = function(boolean) {
     resetButton.disabled = boolean;
 }
 
 
-
+// This function resets the game variables, UI elements etc. IT DOES NOT RESET THE SCORE
 var handleResetGame = function (event) {
-    //reset the array to blanks
+    //reset the mater array to blanks and reset the whichPlayerCounter (i.e. ensure player 1)
     gameGridArray = ["-","-","-","-","-","-","-","-","-"];
+    whichPlayercounter = 0;
 
     // reset the handleclick event listener and all UI elements
     for (var i = 0; i < boxElements.length; i++) {
@@ -288,10 +300,7 @@ var handleResetGame = function (event) {
         boxElements[i].classList.remove('green');
         boxElements[i].addEventListener('click', handleClick);
     }
-    // reset the player counter, and reset message to blank, player colours and disable RESET button       
-    whichPlayercounter = 0;
-    console.log(`Line 259: ${whichPlayerCounter}`)
-    //console.log(whichPlayerCounter);
+    // reset message to blank, player colours and disable RESET button       
     winOrDrawMessage.textContent = "";
     player1.style.backgroundColor = "lightgreen";
     player2.style.backgroundColor = "white";

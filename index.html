@@ -9,9 +9,11 @@
 
 <body>
     <main class="pageWrapper">
-        <header class="heading">
-            <h1>TIC TAC TOE</h1>
-        </header>
+        <div class='at-container'>
+            <img src="toes.jpg">
+            <h1 class='at-item'>Tic Tac Toe</h1>
+            <img src="toes.jpg" class="toes" style="transform: scaleX(-1);">
+        </div>
 
         <section class="playerChoice">
             <text>Play against: </text>
@@ -33,23 +35,6 @@
             <text class="player2ScoreCounter">0</text>
         </section>
 
-        <!-- <section class="allDivs">
-            <div class="box" data-arrayIdx="0">-</div>
-            <div class="box" data-arrayIdx="1">-</div>
-            <div class="box" data-arrayIdx="2">-</div>
-        </section>
-
-        <section class="allDivs">
-            <div class="box" data-arrayIdx="3">-</div>
-            <div class="box" data-arrayIdx="4">-</div>
-            <div class="box" data-arrayIdx="5">-</div>
-        </section>
-
-        <section class="allDivs">
-            <div class="box" data-arrayIdx="6">-</div>
-            <div class="box" data-arrayIdx="7">-</div>
-            <div class="box" data-arrayIdx="8">-</div>
-        </section> -->
 
         <section class="winOrDrawMessage">
             
@@ -74,9 +59,6 @@
             <button class="button" id="8" data-arrayIdx="8">-</button>
         </section>
 
-
-
-
         <section>
             <button class="reset-btn">Play Again</button>
         </section>
@@ -86,7 +68,7 @@
         </audio>
 
     </main>
-
+ 
     <script src="tictactoe.js"></script>
 
 </body>

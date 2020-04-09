@@ -2,6 +2,7 @@
 * [General info](#general-info)
 * [Game link](#gamelink)
 * [Game Extensions](#game-extensions)
+* [To Do](#to-do)
 * [Screenshots](#screenshots)
 * [In-depth Features of the game](#in-depth-features-of-the-game)
 * [Technologies Used](#technologies-used)
@@ -23,9 +24,13 @@ This project is to demonstrate that the following requirements are met in develo
 
 ## Game Extensions
 The following features are also present in the updated game.
-* It keeps score on which player wins
+* It keeps score on which player wins when HUMAN vs HUMAN.
 * It plays a sound when a player wins.
 * The game has an in-built computer player to play against.
+
+## To-Do
+Need to do the following:
+* Refactor code to ensure score updates correctly when playing the computer.
 
 ## Game Link
 * The game can be linked here

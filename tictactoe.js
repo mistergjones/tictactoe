@@ -78,6 +78,7 @@ var handleClick = function (event) {
 
         // update the master grid array with the uer choice
         updateGameGridArray(arrayInsertIdxPosition,charToInsert);
+
         // If the computer player has been selected, run its own functins to populate the gameboard
         if (computerPlayer ===true) {
             player2.style.backgroundColor = "white";
@@ -92,21 +93,15 @@ var handleClick = function (event) {
 
         updateGameGridArray(arrayInsertIdxPosition,charToInsert);
 
+
     }
 }
-
-
-    // call the below function to update the master array in where the player has inputted their choice
-// var updateGameGridArray = function (arrayInsertIdxPosition, charToInsert) {
-
-
-// }
 
 var updateGameGridArray = function(arrayInsertIdxPosition, charToInsert) {
     // insert in the array the index position and the players character (X or 0)
     gameGridArray[arrayInsertIdxPosition] = charToInsert;
 
-        // if items clicked to RED is the same as # of elements. i.e 9...it means it was a draw.
+    // if items clicked to RED is the same as # of elements. i.e 9...it means it was a draw.
     // Then make the board all green.
     if ((document.querySelectorAll('.red').length) === boxElements.length) {
         // if draw reset player counter
@@ -125,14 +120,13 @@ var updateGameGridArray = function(arrayInsertIdxPosition, charToInsert) {
         console.log("it does not work")
     }
 
-    // call the below function to slice/determine the game grid array into its various winning combinations
+    // call this function to slice/determine the game grid array into its various winning combinations
     populateDecisionArrays();
-    return;
+
 }
 
 var isPlayerOneTurn = function() {
     whichPlayerCounter = whichPlayerCounter +1;
-    console.log(`Line 129: ${whichPlayerCounter}`)
     if (whichPlayerCounter % 2 === 0) {
         return false;
     } else {
@@ -203,8 +197,9 @@ var checkWin = function (potentialWinner) {
         // update the player 1 score counter
         player1ScoreCounter.textContent = Number(player1ScoreCounter.textContent) + 1;
 
+        console.log(`Player 1 score is: ${player1ScoreCounter.textContent}`);
         // update back to player 1 to start. Remove this if you want alternating player starts
-        //whichPlayerCounter = 0;
+        whichPlayerCounter = 0;
 
     } else if (potentialWinner === answer0) {
         // display player 2 win message
@@ -220,8 +215,9 @@ var checkWin = function (potentialWinner) {
         // update the player 2 score counter
         player2ScoreCounter.textContent = Number(player2ScoreCounter.textContent) + 1;
         // update back to player 1 to start. Remove this if you want alternating player starts
-        //whichPlayerCounter = 0;
+        whichPlayerCounter = 0;
     }
+    
 }
 
 

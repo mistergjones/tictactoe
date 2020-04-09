@@ -5,6 +5,7 @@
 * [To Do](#to-do)
 * [Screenshots](#screenshots)
 * [In-depth Features of the game](#in-depth-features-of-the-game)
+* [Challenges](#challenges)
 * [Technologies Used](#technologies-used)
 * [Rules of the game](#rules-of-the-game)
 * [Approach Taken](#approach-taken)
@@ -31,6 +32,7 @@ The following features are also present in the updated game.
 ## To-Do
 Need to do the following:
 * Refactor code to ensure score updates correctly when playing the computer.
+* Make the AI smarter by ensuring that whenever the computer has the opportunity to win the game, it will always do so.
 
 ## Game Link
 * The game can be linked here
@@ -50,6 +52,9 @@ Need to do the following:
 * Used event handlers and make use of HTML CSS DOM manipulation.
 * A button is used to reset the game if WINNER or a DRAW. This "resets" the UI components and .event listeners
 
+## Challenges
+* Establishing logic to immitate computer AI which was resolved by randomizing index positions to fill if a slot was available.
+
 ## Rules of the game
 * Each player takes turns to devise a row of 3 X's or 3 0's.
 
@@ -58,7 +63,7 @@ Need to do the following:
 * Understood the rules of the game to determine how a winner is determined. i.e. It checks 8 combinations for a winner.
 * Re-used the pin-pad functionality from the BANK ATM exercise as part of the solution.
 * Spent a lot of time in determining how best to reset the game without doing a "reload". There doesn't seem to be an easy way.
-* Adding the computer player component required splitting up the large click handler function to accomodate the logic.  
+* Adding the computer player component required splitting up the large click handler function to accomodate the logic as it was getting quite complex.
 
 
 ## Technologies

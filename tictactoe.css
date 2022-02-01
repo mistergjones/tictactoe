@@ -1,29 +1,91 @@
+:root {
+    --animation-time: 5s;
+}
+
 * {
     box-sizing: border-box;
 }
 
+body {
+    background-image: url("./spacebackground.png");
+    background-size: auto;
+    background-repeat: no-repeat;
+}
+
 main {
-    width: 40%;
-    margin: 0 auto;
+    /* centre on screen */
+    opacity: 0.75;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+
+    width: 60%;
+    /* margin: 0 auto; */
     text-align: center;
-    border: 5px solid black;
-    border-radius: 20%;
-    
+    border: 5px solid white;
+    border-radius: 3%;
+
+    /* radial background */
+    background: rgb(2, 0, 36);
+    background: radial-gradient(
+        circle,
+        rgba(2, 0, 36, 1) 0%,
+        rgba(9, 9, 121, 1) 35%,
+        rgba(0, 212, 255, 1) 100%
+    );
+}
+
+.at-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.at-item {
+    font-size: 5rem;
+    color: white;
+    animation-name: slide-out-elliptic-bottom-fwd;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-fill-mode: none;
+
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: purple;
+}
+
+.playerChoice {
+    color: white;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-row: 1fr;
+    margin-top: 0;
+    margin-bottom: 0;
+
+    margin: 0 auto;
+    width: 40%;
+}
+.playerChoice h2 {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .flip-horizontally {
     transform: scaleX(-1);
-  }
+}
 
-  img {
+img {
     width: 60px;
-    height:60px;
-  }
+    height: 60px;
+}
 
 div {
     display: inline-block;
     font-size: 2rem;
-    
 }
 
 label {
@@ -32,26 +94,37 @@ label {
     border-radius: 20%;
 }
 
-section{
+section {
     margin: 0 0 0 0;
-
 }
-
 
 .players text {
     display: inline-block;
     margin: 1% 1% 1% 1%;
-    border: solid black;
-    border-style: double;
+    border: 3px solid white;
+    border-top-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+
     font-size: 2rem;
+    color: white;
+}
+
+.player1 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.player2 {
+    background-color: black;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .winCounters text {
     display: inline-block;
     margin: 1% 1% 1% 1%;
-    border: solid black;
-    border-style: double;
-    font-size: 2rem;
+    font-size: 3rem;
+    color: white;
 }
 
 .box {
@@ -60,13 +133,13 @@ section{
     border: 5px solid black;
 }
 
-
 .winOrDrawMessage {
-    font-size: 2rem;
+    font-size: 3rem;
+    color: white;
 }
 
 .button {
-    font-size: 2rem;
+    font-size: 4rem;
     cursor: pointer;
     width: 10%;
 }
@@ -76,56 +149,85 @@ button {
     margin-bottom: 1%;
     font-size: 2rem;
     cursor: pointer;
-
 }
 .red {
     background-color: red;
 }
 
 .green {
-    background-color:lightgreen;
-} 
-
-/* .resetButton {
-    background-color: white;
+    background-color: lightgreen;
 }
 
-.button {
-    background-color: lightgrey;
-} */
-
-
-  
-div.at-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
+.reset-btn {
+    /* background-color: "rgb(235, 82, 255)"; */
+    border: 3px solid white;
+    border-top-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    background-color: rgb(235, 82, 255);
 }
-.at-item {
-    color: black;
-    animation-name: slide-out-elliptic-bottom-fwd;
-    animation-duration: 1s;
-    animation-timing-function: ease;
-    animation-delay: 0s;
-    animation-iteration-count: 1;
-    animation-direction: normal;
-    animation-fill-mode: none;
-}
+
 @keyframes slide-out-elliptic-bottom-fwd {
-    0%{
+    0% {
         -webkit-transform: translateY(0) rotateX(0) scale(1);
         transform: translateY(0) rotateX(0) scale(1);
         -webkit-transform-origin: 50% 500px;
         transform-origin: 50% 500px;
         opacity: 1;
-        }
-    100%{
+    }
+    100% {
         -webkit-transform: translateY(600px) rotateX(-20deg) scale(6);
         transform: translateY(600px) rotateX(-20deg) scale(6);
         -webkit-transform-origin: 50% -100%;
         transform-origin: 50% -100%;
         opacity: 0;
-        }
+    }
 }
-  
+
+.wriggle {
+    animation: MoveUpDown var(--animation-time) linear alternate infinite;
+    /* position: absolute;
+    left: 0;
+    bottom: 0; */
+}
+
+@keyframes MoveUpDown {
+    0%,
+    100% {
+        transform: translateY(0);
+        transform: translateX(0);
+    }
+    75% {
+        transform: translateX(5px);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    25% {
+        transform: translateX(5px);
+    }
+}
+
+.wraggle {
+    animation: MoveAround var(--animation-time) linear alternate infinite;
+    /* position: absolute;
+    left: 0;
+    bottom: 0; */
+}
+
+@keyframes Movearound {
+    0%,
+    100% {
+        transform: translateY(0);
+        transform: translateX(0);
+    }
+    75% {
+        transform: translateX(5px);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    25% {
+        transform: translateX(5px);
+        transform: translatey(5px);
+    }
+}

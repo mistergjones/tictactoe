@@ -1,75 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TIC TAC TOE</title>
-    <link rel="stylesheet" href="tictactoe.css">
-</head>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TIC TAC TOE</title>
+        <link rel="stylesheet" href="tictactoe.css" />
+    </head>
 
-<body>
-    <main class="pageWrapper">
-        <div class='at-container'>
-            <img src="toes.jpg">
-            <h1 class='at-item'>Tic Tac Toe</h1>
-            <img src="toes.jpg" class="toes" style="transform: scaleX(-1);">
-        </div>
+    <body>
+        <main>
+            <div class="at-container">
+                <div class="at-item">Tic Tac Toe</div>
+            </div>
 
-        <section class="playerChoice">
-            <text>Play against: </text>
-            <select class="chooseOpponent">
-                <option class="humanPlayer" value="22" selected>Human</option>
-                <option class="computerPlayer" value="33">Computer</option>
-            </select>
-        </section>
+            <section class="playerChoice">
+                <h2>Play against:</h2>
+                <select class="chooseOpponent">
+                    <option class="humanPlayer" value="22" selected>
+                        Human
+                    </option>
+                    <option class="computerPlayer" value="33">Computer</option>
+                </select>
+            </section>
 
-        <section class = players>
-            <text class="player1" data-Player2Char="X">Player 1 "X"</text>
-            <text class="player2" data-Player2Char="0">Player 2 "0"</text>
-        </section>
+            <section class="players">
+                <text class="player1" data-Player2Char="X">Player 1 "X"</text>
+                <text class="player2" data-Player2Char="0">Player 2 "0"</text>
+            </section>
 
+            <section class="winCounters">
+                <text class="player1ScoreCounter">0</text>
+                <text class="player2ScoreCounter">0</text>
+            </section>
 
+            <section class="winOrDrawMessage"></section>
 
-        <section class = winCounters>
-            <text class="player1ScoreCounter">0</text>
-            <text class="player2ScoreCounter">0</text>
-        </section>
+            <section class="">
+                <button class="button wriggle" id="0" data-arrayIdx="0">
+                    -
+                </button>
+                <button class="button wriggle" id="1" data-arrayIdx="1">
+                    -
+                </button>
+                <button class="button wriggle" id="2" data-arrayIdx="2">
+                    -
+                </button>
+            </section>
 
+            <section class="buttonClass">
+                <button class="button wraggle" id="3" data-arrayIdx="3">
+                    -
+                </button>
+                <button class="button wraggle" id="4" data-arrayIdx="4">
+                    -
+                </button>
+                <button class="button wraggle" id="5" data-arrayIdx="5">
+                    -
+                </button>
+            </section>
 
-        <section class="winOrDrawMessage">
-            
-        </section>
+            <section class="buttonClass">
+                <button class="button wriggle" id="6" data-arrayIdx="6">
+                    -
+                </button>
+                <button class="button wriggle" id="7" data-arrayIdx="7">
+                    -
+                </button>
+                <button class="button wriggle" id="8" data-arrayIdx="8">
+                    -
+                </button>
+            </section>
 
+            <section>
+                <button class="reset-btn">Play Again</button>
+            </section>
 
-        <section class="buttonClass">
-            <button class="button" id="0" data-arrayIdx="0">-</button>
-            <button class="button" id="1" data-arrayIdx="1">-</button>
-            <button class="button" id="2" data-arrayIdx="2">-</button>
-        </section>
+            <audio class="applause">
+                <source src="claps3.mp3" type="audio/mpeg" />
+            </audio>
+        </main>
 
-        <section class="buttonClass">
-            <button class="button" id="3" data-arrayIdx="3">-</button>
-            <button class="button" id="4" data-arrayIdx="4">-</button>
-            <button class="button" id="5" data-arrayIdx="5">-</button>
-        </section>
-
-        <section class="buttonClass">
-            <button class="button" id="6" data-arrayIdx="6">-</button>
-            <button class="button" id="7" data-arrayIdx="7">-</button>
-            <button class="button" id="8" data-arrayIdx="8">-</button>
-        </section>
-
-        <section>
-            <button class="reset-btn">Play Again</button>
-        </section>
-
-        <audio class="applause">
-            <source src="claps3.mp3" type="audio/mpeg">
-        </audio>
-
-    </main>
- 
-    <script src="tictactoe.js"></script>
-
-</body>
+        <script src="tictactoe.js"></script>
+    </body>
 </html>
